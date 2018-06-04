@@ -1,0 +1,45 @@
+switch		event
+------		----------------
+enc_a		enc_cw, enc_ccw
+enc_b
+pb		pb_close, pb_open
+dot		dot_close, dot_open
+dash		dash_close, dash open
+
+
+clock tasks
+-----------
+switch debounce
+time delay
+rtc
+
+tasks		input ev	output_ev		other inputs
+----------	----------	---------		------------
+encoder		enc_a,enc_b	enc_cw, enc_ccw
+
+keyer		dot_close	key_close		key_mode
+		dot_open	key_open
+		dash_close
+		dash_open
+		delay_complete
+
+freq		enc_a, enc_b	freq_ev			setup_mode
+							vfo
+							rx/tx/en
+
+dds		freq_ev		lcd_update_pkt		rx freq
+		key_close				tx_freq
+		key_open
+
+lcd		lcd_update_pkt
+
+relay		key_close				relay_mode
+		key_open
+		delay_complete
+
+setup		pb_close	lcd_update_pkt
+		pb_open
+		delay_complete
+		enc_cw
+		enc_ccw
+		

@@ -1,0 +1,17 @@
+#ifndef CLOCK_H
+#define CLOCK_H
+
+
+class Clock {
+private:
+  static volatile uint8_t ctick;
+
+public:
+  Clock(void);
+  uint8_t getTick(void);
+  void clrTick(void);
+  static void setTick(void);
+};
+
+
+#endif // CLOCK_H

@@ -1,1 +1,1 @@
-This directory contains the based code developed for the new dds that uses the gm328 board.  
+This directory contains the based code developed for the new dds that uses the gm328 board.  This directory contains code for two different IDE's.  The top level is an Arduion sketch.  The /dds6 directory is an Atmel studio version of the same code.  The code is equivalent to that held in the dds5a repository.  

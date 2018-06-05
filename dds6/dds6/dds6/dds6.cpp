@@ -16,7 +16,10 @@
 //										Change clock tick from 10 msec to 1 msec.  This is necessary
 //										in order to implement keyer which needs a 1 msec oneshot resolution.
 //
-
+//	1.5			5/30/18		Change clock from timer 1 to timer 2 so that timer 1 can be used by
+//							the keyer. Timer 2 uses a divide by 1024 perscaler and a count of 157 to
+//							generate an approximate 10 msec interrupt.
+//
 
 /*Begining of Auto generated code by Atmel studio */
 #include <Arduino.h>

@@ -13,21 +13,24 @@
 #define TICKS_TO_MSEC(x) (x*10)
 
 
+#if 0
+#define TEN_MSEC	10
+#define ONE_SEC		1000
+#define TWO_SEC		2000
+#define FIVE_HUNDRED_MSEC	500
+#define SHORT_CLOSE	2000		// msec
+#else
 #define TEN_MSEC	1
 #define ONE_SEC		100
 #define TWO_SEC		200
 #define FIVE_HUNDRED_MSEC	50
 #define SHORT_CLOSE	200		// msec
-
-#define NUM_PERIODIC_TASKS	16
-#define NUM_SINGLE_TASKS	4
-
-#ifdef TT_CLK
-#define OCR1A_DIVISOR	10000
-#else
-#define OCR1A_DIVISOR 20000
 #endif
 
+#define NUM_PERIODIC_TASKS	8
+#define NUM_SINGLE_TASKS	2
+
+#define OCR2A_DIVISOR 157
 
 void usecDly(int x);
 
@@ -40,7 +43,7 @@ private:
 	static volatile uint16_t reloadTime[NUM_PERIODIC_TASKS];
 	static volatile uint16_t periodicTimeLeft[NUM_PERIODIC_TASKS];
   static Callback *singleTasks[NUM_SINGLE_TASKS];
-	static volatile uint16_t oneshotTimeLeft[NUM_PERIODIC_TASKS];
+	static volatile uint16_t oneshotTimeLeft[NUM_SINGLE_TASKS];
 
 public:
   Clock(void);

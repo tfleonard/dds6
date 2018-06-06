@@ -104,29 +104,11 @@ params::params(Graphics *l) {
 	bgc = LTGREEN;
 
 	memcpy(param_display,default_param_display, sizeof(param_display));
-	//
-	// background for frequency display, white
-	//
-#if 0
-	pixpsn_t sp = {0,0};
-	lcd->rect(sp,NUM_PIX_PER_LINE, 5 * CHAR_HEIGHT, tc);
-
-	//
-	// background for parameter display, black
-	//
-	sp = {5*CHAR_HEIGHT,0};
-	lcd->rect(sp,NUM_PIX_PER_LINE, NUM_PIX_LINES - (5 * CHAR_HEIGHT), bgc);
-#endif
-
 	initParams(l);
 }
 
 
 void params::callback(void) {
-	if (ticksLeft-- > 0) {
-		return;
-	}
-	Clock::cancelPeriodic(timerHandle);
 	exitParamMode = true;
 }
 
@@ -268,8 +250,7 @@ void params::update(Encoder *enc, Sw *pb, Lcd *lcd) {
 	if (pb->hasEvent()) {
 		if (pb->getEvent() == EV_CLOSE) {
 			pb->clearEvent();
-			ticksLeft = 200;
-			timerHandle = Clock::registerPeriodic(this);
+			timerHandle = Clock::registerOneshot(this,TWO_SEC);
 			exitParamMode = false;
 
 		} else if (pb->getEvent() == EV_OPEN) {
@@ -280,7 +261,7 @@ void params::update(Encoder *enc, Sw *pb, Lcd *lcd) {
 				return;
 
 			} else {
-				Clock::cancelPeriodic(timerHandle);
+				Clock::cancelOneshot(timerHandle);
 				uint16_t line = param_display[curParam].label_psn.line;
 				uint16_t col =  param_display[curParam].label_psn.col;
 

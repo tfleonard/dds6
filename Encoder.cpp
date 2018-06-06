@@ -39,7 +39,7 @@ Encoder::Encoder(uint8_t a, uint8_t b, uint8_t port) {
 		}
 	}
 	lastEvent = ENC_NO_EVENT;
-	Clock::registerPeriodic(this);
+	Clock::registerPeriodic(this,TEN_MSEC);
 	missedCwCount = 0;
 	missedCcwCount = 0;
 }

@@ -7,7 +7,19 @@
 //	1.2			5/25/18		First working TT version.
 //							Added call sign and elapsed time display.
 //							This version is built with Atmel Studio
-
+//	1.3			5/26/18		Remove Elapsed Time task and clock update - causes unstable
+//							keying due to too much time spent in fprintf.
+//							DO NOT USE PRINTF IN ANY CRITICAL PATH!
+//
+//	1.4			5/29/18		Change periodic and oneshot timers to take a time in msec.
+//										Change callbacks to handle the event, not count down the time.
+//										Change clock tick from 10 msec to 1 msec.  This is necessary
+//										in order to implement keyer which needs a 1 msec oneshot resolution.
+//
+//	1.5			5/30/18		Change clock from timer 1 to timer 2 so that timer 1 can be used by
+//							the keyer. Timer 2 uses a divide by 1024 perscaler and a count of 157 to
+//							generate an approximate 10 msec interrupt.
+//
 
 /*Begining of Auto generated code by Atmel studio */
 #include <Arduino.h>
@@ -40,10 +52,6 @@
 FILE uart_str = FDEV_SETUP_STREAM_CPP(uart_putc, uart_getc, _FDEV_SETUP_RW);
 FILE lcd_str  = FDEV_SETUP_STREAM_CPP(lcd_putc, NULL, _FDEV_SETUP_WRITE);
 FILE *lcdfp = &lcd_str;
-
-
-
-
 
 
 // my main, called from loop
@@ -91,7 +99,7 @@ mode_t curMode;
 	Sw *dot = new Sw(DOT, PORTC_ADR);
 	Sw *dash = new Sw(DASH, PORTC_ADR);
 	Sw *pb = new Sw(PB, PORTD_ADR);
-	ElapsedTime *et = new ElapsedTime(100);
+//	ElapsedTime *et = new ElapsedTime(ONE_SEC);
 	Encoder *enc = new Encoder(ENCA, ENCB, PORTB_ADR);
 
 	band_t band = BAND_40;
@@ -243,7 +251,7 @@ dds(freq);
 			l->gotoxy(9,0);
 			l->puts(buf);
 		}
-
+#if 0
 		if (et->expired()) {
 			secs++;
 			if (secs > 59) {
@@ -258,6 +266,8 @@ dds(freq);
 			g->gotoxy(9,12);
 			fprintf(lcdfp, "%02d:%02d:%02d", hours,mins, secs);
 		}
+#endif
+
 	}
 
 #if 0

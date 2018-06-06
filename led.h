@@ -9,7 +9,6 @@
 class Led : public Callback {
 
 private:
-	uint8_t count;
 
 public:
   Led(void);

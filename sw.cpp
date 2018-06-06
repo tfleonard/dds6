@@ -40,7 +40,7 @@ Sw::Sw(uint8_t s, volatile uint8_t p) {
 		state = PB_CLOSE;
 	}
 	lastEvent = EV_NONE;
-	Clock::registerPeriodic(this);
+	Clock::registerPeriodic(this, TEN_MSEC);
 }
 
 

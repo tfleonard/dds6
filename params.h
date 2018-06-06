@@ -64,13 +64,11 @@ private:
 	mode_t	mode;
 	key_t key;
 	uint8_t speed;
-	uint32_t pbCloseTicks;
 	param_entry_t param_display[PARAM_END];
 	void initParams(Lcd *l);
 	param_t curParam;
 	bool exitParamMode;
 	int	timerHandle;
-	int ticksLeft;
 	bool waitForOpen;
 	Graphics *lcd;
 	pixColor fgc;

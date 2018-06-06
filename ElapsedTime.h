@@ -15,12 +15,10 @@ class ElapsedTime :public Callback {
 
 private:
 	uint8_t event;
-	uint8_t ticks;
-	uint8_t	numTicks;
 
 public:
 
-	ElapsedTime(uint8_t nt);
+	ElapsedTime(uint16_t nt);
 	void callback(void);
 	bool expired(void);
 

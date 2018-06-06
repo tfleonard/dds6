@@ -13,21 +13,16 @@
 
 #include "clock.h"
 #include "ElapsedTime.h"
+
  
-ElapsedTime::ElapsedTime(uint8_t nt) {
+ElapsedTime::ElapsedTime(uint16_t nt) {
 	event = 0;
-	numTicks = nt;
-	ticks = 0;
-	Clock::registerPeriodic(this);
+	Clock::registerPeriodic(this, nt);
 }
 
 
 void ElapsedTime::callback(void) {
-	ticks++;
-	if (ticks >= numTicks) {
-		ticks = 0;
-		event++;
-	}
+	event++;
 }
 
 

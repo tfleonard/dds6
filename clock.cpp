@@ -137,11 +137,21 @@ void Clock::cancelOneshot(int indx) {
 //
 Clock::Clock(void) {
   cli();
+#if 0
+  TCCR1A  = 0;                          // wgm10 = 0, no outputs
+  TCCR1B = (1 << CS11) | (1 << WGM12);   // clock divide by 8, WGM30 = 4, CTC mode
+  TCCR1C = 0;
+  TCNT1H = 0;
+  TCNT1L = 0;
+  OCR1A =  OCR1A_DIVISOR;               // divide by 2000, 1 msec, do this last!!
+  TIMSK1 = (1 << OCIE1A);               // enable compare register 1 int
+#else
   TCCR2A  = (1 << WGM21);                          // wgm10 = 2, CTC ,pde, no outputs
   TCCR2B = (1 << CS22) | (1 << CS21) | (1 << CS20);   // clock divide by 1024 WGM22 = 0, CTC mode
   TCNT2 = 0;
   OCR2A =  OCR2A_DIVISOR;               // divide by 2000, 1 msec, do this last!!
   TIMSK2 = (1 << OCIE2A);               // enable compare register 1 int
+#endif
   sysclock = 0;
   count = 0;
 

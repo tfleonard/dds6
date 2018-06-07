@@ -9,8 +9,9 @@
 
 #include "Callback.h"
 
-#define MSEC_TO_TICKS(x) (x)
-#define TICKS_TO_MSEC(x) (x)
+#define MSEC_TO_TICKS(x) (x/10)
+#define TICKS_TO_MSEC(x) (x*10)
+
 
 #if 0
 #define TEN_MSEC	10

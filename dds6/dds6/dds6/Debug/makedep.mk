@@ -14,15 +14,21 @@ font.s
 
 graphics.cpp
 
+keyer.cpp
+
 led.cpp
 
 dds6.cpp
 
 lcd.cpp
 
+led2.cpp
+
 params.cpp
 
 sw.cpp
+
+timer.cpp
 
 uart.cpp
 

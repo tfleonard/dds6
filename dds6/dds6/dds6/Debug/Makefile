@@ -42,11 +42,14 @@ C_SRCS +=  \
 ../ElapsedTime.cpp \
 ../Encoder.cpp \
 ../graphics.cpp \
+../keyer.cpp \
 ../led.cpp \
 ../dds6.cpp \
 ../lcd.cpp \
+../led2.cpp \
 ../params.cpp \
 ../sw.cpp \
+../timer.cpp \
 ../uart.cpp \
 ../vfo.cpp
 
@@ -65,11 +68,14 @@ ElapsedTime.o \
 Encoder.o \
 font.o \
 graphics.o \
+keyer.o \
 led.o \
 dds6.o \
 lcd.o \
+led2.o \
 params.o \
 sw.o \
+timer.o \
 uart.o \
 vfo.o
 
@@ -80,11 +86,14 @@ ElapsedTime.o \
 Encoder.o \
 font.o \
 graphics.o \
+keyer.o \
 led.o \
 dds6.o \
 lcd.o \
+led2.o \
 params.o \
 sw.o \
+timer.o \
 uart.o \
 vfo.o
 
@@ -95,11 +104,14 @@ ElapsedTime.d \
 Encoder.d \
 font.d \
 graphics.d \
+keyer.d \
 led.d \
 dds6.d \
 lcd.d \
+led2.d \
 params.d \
 sw.d \
+timer.d \
 uart.d \
 vfo.d
 
@@ -110,11 +122,14 @@ ElapsedTime.d \
 Encoder.d \
 font.d \
 graphics.d \
+keyer.d \
 led.d \
 dds6.d \
 lcd.d \
+led2.d \
 params.d \
 sw.d \
+timer.d \
 uart.d \
 vfo.d
 
@@ -133,6 +148,12 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
+
+
 
 
 

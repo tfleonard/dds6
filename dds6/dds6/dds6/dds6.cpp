@@ -46,6 +46,8 @@
 #include "Encoder.h"
 #include "vfo.h"
 #include "params.h"
+#include "led2.h"
+
 
 //Beginning of Auto generated function prototypes by Atmel Studio
 void mymain(void );
@@ -58,6 +60,8 @@ FILE uart_str = FDEV_SETUP_STREAM_CPP(uart_putc, uart_getc, _FDEV_SETUP_RW);
 FILE lcd_str  = FDEV_SETUP_STREAM_CPP(lcd_putc, NULL, _FDEV_SETUP_WRITE);
 FILE *lcdfp = &lcd_str;
 
+volatile uint8_t flag;
+
 
 // my main, called from loop
 void mymain(void) {
@@ -69,7 +73,9 @@ uint8_t hours = 0;
 Clock *cl = new Clock();
 
 #ifndef LCD_TT
-Led *led = new Led();
+//Led *led = new Led();
+Timer *tmr = new Timer();
+Led2 *led = new Led2();
 #endif
 
 Lcd *l = new Lcd();
@@ -137,6 +143,11 @@ mode_t curMode;
 	fprintf(lcdfp, "AA6DQ");
 
 	while(1) {
+
+if (flag >= 2) {
+	flag = 0;
+	printf(" pass: %d\n", pass++);
+}
 		
 		mode_t newMode = param->getMode();
 

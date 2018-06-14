@@ -35,7 +35,7 @@ dds6.d dds6.o: .././dds6.cpp ..\\..\ArduinoCore\include\core/Arduino.h \
  ..\\..\ArduinoCore\include\variants\standard/pins_arduino.h .././clock.h \
  .././Callback.h .././uart.h .././led.h .././lcd.h .././colors.h \
  .././graphics.h .././dds.h .././sw.h .././Events.h .././ElapsedTime.h \
- .././Encoder.h .././vfo.h .././params.h
+ .././Encoder.h .././vfo.h .././params.h .././led2.h .././timer.h
 
 ..\\..\ArduinoCore\include\core/Arduino.h:
 
@@ -134,3 +134,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 .././vfo.h:
 
 .././params.h:
+
+.././led2.h:
+
+.././timer.h:

@@ -258,6 +258,12 @@
     <Compile Include="graphics.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="keyer.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="keyer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="led.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -273,6 +279,12 @@
     <Compile Include="lcd.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="led2.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="led2.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="params.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -280,6 +292,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="sw.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="uart.cpp">

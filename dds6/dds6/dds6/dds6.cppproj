@@ -288,6 +288,12 @@
     <Compile Include="params.cpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="relay.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="relay.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="sw.cpp">
       <SubType>compile</SubType>
     </Compile>

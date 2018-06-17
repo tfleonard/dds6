@@ -26,6 +26,8 @@ led2.cpp
 
 params.cpp
 
+relay.cpp
+
 sw.cpp
 
 timer.cpp

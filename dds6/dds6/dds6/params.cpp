@@ -193,6 +193,16 @@ void	params::setMode(mode_t newMode) {
 	mode = newMode;
 }
 
+
+uint8_t params::getSpeed(void) {
+	return speed;
+}
+	
+
+key_t params::getKey(void) {
+	return key;
+}
+
 void params::setActiveVfo(vfo_actv_t rxtx) {
 char *valp = NULL;
 uint16_t line;

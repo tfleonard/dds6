@@ -88,6 +88,9 @@ public:
 	void callback(void);
 	void update(Encoder *enc, Sw *pb, Lcd *lcd);
 	void updateEnter(Encoder *enc, Sw *pb, Lcd *lcd);
+	uint8_t getSpeed(void);
+	key_t getKey(void);
+	
 };
 
 

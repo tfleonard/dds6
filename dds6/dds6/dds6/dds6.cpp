@@ -46,22 +46,20 @@
 #include "Encoder.h"
 #include "vfo.h"
 #include "params.h"
-#include "led2.h"
+#include "timer.h"
+#include "relay.h"
+#include "keyer.h"
 
 
 //Beginning of Auto generated function prototypes by Atmel Studio
 void mymain(void );
 //End of Auto generated function prototypes by Atmel Studio
 
-
  using namespace std;
 
 FILE uart_str = FDEV_SETUP_STREAM_CPP(uart_putc, uart_getc, _FDEV_SETUP_RW);
 FILE lcd_str  = FDEV_SETUP_STREAM_CPP(lcd_putc, NULL, _FDEV_SETUP_WRITE);
 FILE *lcdfp = &lcd_str;
-
-volatile uint8_t flag;
-
 
 // my main, called from loop
 void mymain(void) {
@@ -71,17 +69,15 @@ uint8_t secs = 0;
 uint8_t mins = 0;
 uint8_t hours = 0;
 Clock *cl = new Clock();
+Timer *tmr = new Timer();
 
 #ifndef LCD_TT
 //Led *led = new Led();
-Timer *tmr = new Timer();
-Led2 *led = new Led2();
 #endif
 
 Lcd *l = new Lcd();
 Graphics *g = new Graphics();
 
-int pass = 0;
 pixColor  f = GREEN;
 pixColor pix_green = GREEN;
 pixColor  b = LTGREEN;
@@ -129,7 +125,10 @@ mode_t curMode;
 
 	vfo *curVfo = vfoA;
 	params *param = new params(g);
-
+	relay *rly = new relay(param);
+	keyer *kyr = new keyer(dot,dash,rly);
+	rly->setVfo(curVfo);
+	
 	//
 	// initialize a vfo and frequency
 	//
@@ -143,11 +142,6 @@ mode_t curMode;
 	fprintf(lcdfp, "AA6DQ");
 
 	while(1) {
-
-if (flag >= 2) {
-	flag = 0;
-	printf(" pass: %d\n", pass++);
-}
 		
 		mode_t newMode = param->getMode();
 
@@ -188,6 +182,15 @@ if (flag >= 2) {
 				freq - curVfo->getTxFreq(band);
 				dds(freq);
 			}
+			
+			//
+			// update the keyer
+			//
+			kyr->setSpeed(param->getSpeed());
+			kyr->setMode(param->getKey()); 
+			rly->setBand(band);
+			rly->setVfo(curVfo);		
+			
 			curMode = newMode;
 
 		} else if ((newMode == MODE_PARAMS) && (curMode == MODE_NORMAL)) {
@@ -221,12 +224,11 @@ if (flag >= 2) {
 
 					if (enc->hasEvent()) {
 						uint16_t line;
+
 						curVfo->update(band);
 						enc->clearEvent();
-
-	freq = curVfo->getTxFreq(band);
-	dds(freq);
-
+						freq = curVfo->getTxFreq(band);
+						dds(freq);
 						curVfo->getTxDisplayFreq(buf, band);
 						line = curVfo->getLine();
 						for (size_t i = 0; i < strlen(buf); i++) {
@@ -240,33 +242,24 @@ if (flag >= 2) {
 			}
 		}
 
-		if (dot->hasEvent()) {
+		if (param->getKey() == KEY_ST) {
 			if (dot->getEvent() == EV_CLOSE) {
-				freq = curVfo->getTxFreq(band);
-				dds(freq);
-				reg = PORTD;
-				PORTD = reg | RLY_MSK;
-				param->setActiveVfo(TX);
+				rly->selectTx();
 			} else {
-				freq = curVfo->getRxFreq(band);
-				dds(freq);
-				reg = PORTD;
-				PORTD = reg & ~RLY_MSK;
-				param->setActiveVfo(RX);
+				rly->selectRx();
 			}
 			dot->clearEvent();
-		}
-		
-		if (dash->hasEvent()) {
-			if (dash->getEvent() == EV_CLOSE) {
-				sprintf(buf,"DASH_CLOSE");
-				} else {
-				sprintf(buf,"DASH_OPEN ");
-			}
 			dash->clearEvent();
-			l->gotoxy(9,0);
-			l->puts(buf);
+			
+		} else if (param->getKey() == KEY_PDLS) {
+			if (kyr->isIdle()) {
+				if ( dot->hasEvent() || dash->hasEvent() ) { 		
+					kyr->update();
+				}
+			}
 		}
+
+
 #if 0
 		if (et->expired()) {
 			secs++;
@@ -306,7 +299,6 @@ void setup() {
 void loop() {
   mymain();
 }
-
 
 
 

@@ -32,12 +32,7 @@ public:
 	void setSpeed(uint8_t spd);
 	void setMode(key_t md);
 	void callback(void);
-
-
-
-
-
-
+	uint8_t getState(void);
 };
 
 

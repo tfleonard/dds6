@@ -46,10 +46,15 @@ bool keyer::isIdle(void) {
 void keyer::update(void) {
 	
 	if (isIdle()) {
+printf("update\n");
 		callback();
 	}	
 }
 
+
+uint8_t keyer::getState(void) {
+	return state;
+}
 
 //
 // called from interrupt by the timer

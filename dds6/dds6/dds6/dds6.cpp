@@ -72,7 +72,7 @@ Clock *cl = new Clock();
 Timer *tmr = new Timer();
 
 #ifndef LCD_TT
-//Led *led = new Led();
+Led *led = new Led();
 #endif
 
 Lcd *l = new Lcd();
@@ -138,6 +138,15 @@ mode_t curMode;
 	dds(freq);
 
 	curMode = param->getMode();
+
+	//
+	// initialize keyer and relay
+	//
+	kyr->setSpeed(param->getSpeed());
+	kyr->setMode(param->getKey());
+	rly->setBand(band);
+	rly->setVfo(curVfo);
+
 	g->gotoxy(9,0);
 	fprintf(lcdfp, "AA6DQ");
 
@@ -242,23 +251,54 @@ mode_t curMode;
 			}
 		}
 
+#if 1
+
 		if (param->getKey() == KEY_ST) {
+			if (dot->hasEvent()) {
+				if (dot->getEvent() == EV_CLOSE) {
+					rly->selectTx();
+				} else {
+					rly->selectRx();
+				}
+				dot->clearEvent();
+				dash->clearEvent();
+			}
+			
+		} else /*if (param->getKey() == KEY_PDLS) */ {
+
+printf("key: 0x%x\n", param->getKey());
+
+			if (kyr->isIdle()) {
+				if ( dot->hasEvent() || dash->hasEvent() ) { 		
+					kyr->update();
+				}
+			} else {
+				printf("keyer state: 0x%x\n", kyr->getState());
+			}
+		}
+
+#else
+
+		if (dot->hasEvent()) {
 			if (dot->getEvent() == EV_CLOSE) {
 				rly->selectTx();
 			} else {
 				rly->selectRx();
 			}
 			dot->clearEvent();
-			dash->clearEvent();
-			
-		} else if (param->getKey() == KEY_PDLS) {
-			if (kyr->isIdle()) {
-				if ( dot->hasEvent() || dash->hasEvent() ) { 		
-					kyr->update();
-				}
-			}
 		}
-
+		
+		if (dash->hasEvent()) {
+			if (dash->getEvent() == EV_CLOSE) {
+				sprintf(buf,"DASH_CLOSE");
+				} else {
+				sprintf(buf,"DASH_OPEN ");
+			}
+			dash->clearEvent();
+			l->gotoxy(9,0);
+			l->puts(buf);
+		}
+#endif
 
 #if 0
 		if (et->expired()) {

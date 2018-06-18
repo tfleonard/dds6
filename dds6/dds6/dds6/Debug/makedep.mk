@@ -22,8 +22,6 @@ dds6.cpp
 
 lcd.cpp
 
-led2.cpp
-
 params.cpp
 
 relay.cpp

@@ -279,12 +279,6 @@
     <Compile Include="lcd.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="led2.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="led2.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="params.cpp">
       <SubType>compile</SubType>
     </Compile>

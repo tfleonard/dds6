@@ -20,6 +20,10 @@
 //							the keyer. Timer 2 uses a divide by 1024 perscaler and a count of 157 to
 //							generate an approximate 10 msec interrupt.
 //
+//	1.6			6/18/18		Added keyer and relay classes.  Turn off update of RX/TX when using
+//										keyer as the update slows down the keyer.  This version is basically complete.
+//										It lacks the bug feature and saving current state to eeprom.
+
 
 /*Begining of Auto generated code by Atmel studio */
 #include <Arduino.h>

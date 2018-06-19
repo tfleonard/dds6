@@ -256,9 +256,9 @@ mode_t curMode;
 		if (param->getKey() == KEY_ST) {
 			if (dot->hasEvent()) {
 				if (dot->getEvent() == EV_CLOSE) {
-					rly->selectTx();
+					rly->selectTx(true);
 				} else {
-					rly->selectRx();
+					rly->selectRx(true);
 				}
 				dot->clearEvent();
 				dash->clearEvent();

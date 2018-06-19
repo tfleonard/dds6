@@ -22,8 +22,8 @@ private:
 public:
 	relay(params *prm);	
 	void setVfo(vfo *v);
-	void selectTx(void);
-	void selectRx(void);
+	void selectTx(bool upd);
+	void selectRx(bool upd);
 	void setBand(band_t b);
 };
 

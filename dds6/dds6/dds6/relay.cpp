@@ -41,7 +41,7 @@ void relay::setBand(band_t b) {
 }
 
 
-void relay::selectTx(void) {
+void relay::selectTx(bool update) {
 	float freq;
 	volatile uint8_t reg;
 
@@ -49,11 +49,13 @@ void relay::selectTx(void) {
 	dds(freq);
 	reg = PORTD;
 	PORTD = reg | RLY_MSK;
-	param->setActiveVfo(TX);
+	if (update) {
+		param->setActiveVfo(TX);
+	}
 }
 
 
-void relay::selectRx(void) {
+void relay::selectRx(bool update) {
 	float freq;
 	volatile uint8_t reg;
 
@@ -61,7 +63,9 @@ void relay::selectRx(void) {
 	dds(freq);
 	reg = PORTD;
 	PORTD = reg & ~RLY_MSK;
-	param->setActiveVfo(RX);
+	if (update) {
+		param->setActiveVfo(RX);
+	}
 }
 	
 	

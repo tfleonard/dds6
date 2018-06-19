@@ -19,8 +19,8 @@
 // uncomment the next line for the Transistor Tester LCD
 // comment it out for the 1.8 LCD
 //
-#define LCD_18	1		// new LCD display to UNO test bed (Red)
-//#define LCD_TT	1		// transistor tester PINS
+//#define LCD_18	1		// new LCD display to UNO test bed (Red)
+#define LCD_TT	1		// transistor tester PINS
 //#define LCD_TB	1		// tt lcd to UNO test bed
 
 

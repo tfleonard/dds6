@@ -65,22 +65,22 @@ void keyer::callback(void) {
 		case 0:
 			if (dot->hasEvent()) {
 				if (dot->getEvent() == EV_CLOSE) {
-					rly->selectTx();
+					rly->selectTx(false);
 					state = 1;
 					Timer::startTimer(this, dot_time);
 				} else {
-					rly->selectRx();				
+					rly->selectRx(false);				
 				}
 				dot->clearEvent();
 				dash->clearEvent();
 
 			} else if (dash->hasEvent()) {
 				if (dash->getEvent() == EV_CLOSE) {
-					rly->selectTx();
+					rly->selectTx(false);
 					state = 3;
 					Timer::startTimer(this, dot_time*WEIGHT);
 				} else {
-					rly->selectRx();	
+					rly->selectRx(false);	
 				}
 				dash->clearEvent();					
 			}
@@ -88,7 +88,7 @@ void keyer::callback(void) {
 
 			case 1:
 				state = 2;
-				rly->selectRx();
+				rly->selectRx(false);
 				Timer::startTimer(this, dot_time);
 				break;			
 
@@ -100,19 +100,19 @@ void keyer::callback(void) {
 				
 				} else if (dot->isClosed() && !dash->isClosed()) {
 					state = 1;
-					rly->selectTx();
+					rly->selectTx(false);
 					Timer::startTimer(this, dot_time);
 					
 				} else {
 					state = 3;
-					rly->selectTx();
+					rly->selectTx(false);
 					Timer::startTimer(this, dot_time*WEIGHT);
 				} 
 				break;
 				
 			case 3:
 				state = 4;
-				rly->selectRx();
+				rly->selectRx(false);
 				Timer::startTimer(this, dot_time);
 				break;
 			
@@ -124,19 +124,19 @@ void keyer::callback(void) {
 				
 				} else if (!dot->isClosed() && dash->isClosed()) {
 					state = 3;
-					rly->selectTx();
+					rly->selectTx(false);
 					Timer::startTimer(this, dot_time*WEIGHT);
 					
 				} else {
 					state = 1;
-					rly->selectTx();
+					rly->selectTx(false);
 					Timer::startTimer(this, dot_time);
 				} 
 				break;
 
 			default:
 				state = 0;
-				rly->selectRx();
+				rly->selectRx(false);
 				dot->clearEvent();
 				dash->clearEvent();			
 				break;

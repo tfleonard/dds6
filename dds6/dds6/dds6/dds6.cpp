@@ -266,14 +266,14 @@ mode_t curMode;
 			
 		} else /*if (param->getKey() == KEY_PDLS) */ {
 
-printf("key: 0x%x\n", param->getKey());
+//printf("key: 0x%x\n", param->getKey());
 
 			if (kyr->isIdle()) {
 				if ( dot->hasEvent() || dash->hasEvent() ) { 		
 					kyr->update();
 				}
 			} else {
-				printf("keyer state: 0x%x\n", kyr->getState());
+//				printf("keyer state: 0x%x\n", kyr->getState());
 			}
 		}
 

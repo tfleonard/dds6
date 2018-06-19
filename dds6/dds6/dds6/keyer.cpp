@@ -32,6 +32,7 @@ keyer::keyer(Sw *dot_sw, Sw *dash_sw, relay *rlyd) {
 	speed = 15;
 	dot_time = (6000) / ((uint16_t)speed * 5);
 	mode =  KEY_ST; 	
+	state = 0;
 }
 
 bool keyer::isIdle(void) {
@@ -46,7 +47,7 @@ bool keyer::isIdle(void) {
 void keyer::update(void) {
 	
 	if (isIdle()) {
-printf("update\n");
+//printf("update\n");
 		callback();
 	}	
 }
